@@ -55,6 +55,12 @@ public class BookDetail extends BaseBookDetail {
 			public void onClick(View v) {
 				read.finishReading();
 				reads.add(read);
+				try {
+					readDao.create(read);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				la.notifyDataSetChanged();
 				buttonAddRead.setVisibility(View.VISIBLE);
 				buttonFinishRead.setVisibility(View.INVISIBLE);
@@ -114,6 +120,7 @@ public class BookDetail extends BaseBookDetail {
 		
 		ListView l = (ListView) findViewById(android.R.id.list);
 		l.setAdapter(la);
+	
 	}
 
 	@Override
@@ -121,9 +128,19 @@ public class BookDetail extends BaseBookDetail {
 		super.onStart();
 		try {
 			readDao = doh.getReadDao();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		refresh();
+	}
+	
+	public void refresh(){
+		try {
 			reads = readDao.queryForEq("book_id", book);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			la.notifyDataSetChanged();
 		}
 	}
 	
