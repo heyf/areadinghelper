@@ -90,7 +90,7 @@ public class BaseBookList extends Activity {
 			View view = convertView;
 			final ViewHolder holder;
 			if (convertView == null) {
-				view = getLayoutInflater().inflate(R.layout.item_list_image, parent, false);
+				view = getLayoutInflater().inflate(R.layout.item_book, parent, false);
 				holder = new ViewHolder();
 				holder.image = (ImageView) view.findViewById(R.id.image);
 				holder.title = (TextView) view.findViewById(R.id.title);

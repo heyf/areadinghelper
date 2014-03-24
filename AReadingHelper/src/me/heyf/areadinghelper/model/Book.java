@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -19,7 +20,7 @@ public class Book implements Parcelable {
 	@DatabaseField
 	public String image_url;
 	@DatabaseField
-	public int douban_id;
+	private int douban_id;
 	@DatabaseField
 	public String author;
 	@DatabaseField
@@ -31,6 +32,14 @@ public class Book implements Parcelable {
 	@DatabaseField
 	public int current_state;
 	
+	//plan
+	@DatabaseField
+	public int plan_type;
+	@DatabaseField
+	public int page_read;
+//	@DatabaseField
+//	public long plan_time;
+	
 	//runtime
 	
 	public Book(){};
@@ -41,13 +50,16 @@ public class Book implements Parcelable {
 			image_url = bookJSON.getString("image");
 			author = bookJSON.getJSONArray("author").getString(0);
 			douban_id = bookJSON.getInt("id");
+			Log.d("parse_douban id", Integer.toString(douban_id));
 			publisher = bookJSON.getString("publisher");
+			//pages = Integer.parseInt(bookJSON.getString("pages"));
 			pages = bookJSON.getInt("pages");
+			plan_type = 0;
+			page_read = 0;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
 	public static final Parcelable.Creator<Book> CREATOR = new Creator<Book>(){
@@ -64,6 +76,9 @@ public class Book implements Parcelable {
 			mBook.comment = source.readString();
 			mBook.pages = source.readInt();
 			mBook.current_state = source.readInt();
+			mBook.plan_type = source.readInt();
+			mBook.page_read = source.readInt();
+			//mBook.plan_time = source.readLong();
 			return mBook;
 		}
 
@@ -90,9 +105,16 @@ public class Book implements Parcelable {
 		dest.writeString(comment);
 		dest.writeInt(pages);
 		dest.writeInt(current_state);
+		dest.writeInt(plan_type);
+		dest.writeInt(page_read);
+		//dest.writeLong(plan_time);
 	}
 
 	public int getId(){
 		return id;
+	}
+	
+	public int getDoubanId(){
+		return douban_id;
 	}
 }

@@ -4,22 +4,11 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 	
-    <ImageView
-        android:id="@+id/book_preview_image"
-        android:layout_width="72dip"
-        android:layout_height="72dip"
-        android:layout_margin="3dip"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/descr_image"
-        android:scaleType="centerCrop" />
-        
-    <TextView
-        android:id="@+id/book_preview_title"
-        android:layout_width="match_parent"
+    <me.heyf.areadinghelper.utils.BookDetailView
+        android:id="@+id/book_preview"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10" >
-       
-    </TextView>
+    />
 
     <Button
         android:id="@+id/book_preview_button"

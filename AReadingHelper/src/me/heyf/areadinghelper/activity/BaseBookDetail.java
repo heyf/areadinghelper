@@ -4,14 +4,12 @@ import java.sql.SQLException;
 
 import me.heyf.areadinghelper.R;
 import me.heyf.areadinghelper.model.Book;
+import me.heyf.areadinghelper.utils.BookDetailView;
 import me.heyf.areadinghelper.utils.DatabaseOpenHelper;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -20,10 +18,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 public class BaseBookDetail extends Activity {
-
-	TextView t;
-	Button b; 
-	ImageView detailImageView;
+	
+	BookDetailView bookDetailView;
 		
 	Book book;
 	
@@ -38,6 +34,9 @@ public class BaseBookDetail extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		Intent i = getIntent();
+		book = i.getParcelableExtra("book");
+
 		options = new DisplayImageOptions.Builder()
 		.showImageForEmptyUri(R.drawable.ic_empty)
 		.showImageOnFail(R.drawable.ic_error)
@@ -59,10 +58,11 @@ public class BaseBookDetail extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		Intent i = getIntent();
-		book = i.getParcelableExtra("book");
-		t.setText(book.name);
-		imageLoader.displayImage(book.image_url, detailImageView, options);
+		bookDetailView.setTitle(book.name);
+		bookDetailView.setAuthor(book.author);
+		bookDetailView.setPage(book.pages);
+		bookDetailView.setPageRead(book.page_read);
+		imageLoader.displayImage(book.image_url, bookDetailView.book_image, options);
 	}
 	
 	

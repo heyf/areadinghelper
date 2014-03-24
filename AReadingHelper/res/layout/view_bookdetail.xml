@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+    
+        <ImageView
+            android:id="@+id/book_detail_image"
+            android:layout_width="100dip"
+            android:layout_height="120dip"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="3dip"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/descr_image"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/book_detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/book_detail_image"
+            android:layout_alignTop="@+id/book_detail_image"
+            android:textSize="30sp" />
+        
+        <TextView
+            android:id="@+id/book_detail_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/book_detail_title"
+            android:layout_toRightOf="@+id/book_detail_image"
+            android:ems="10" />
+        
+        <TextView
+            android:id="@+id/book_detail_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/book_detail_author"
+            android:layout_toRightOf="@+id/book_detail_image"
+            android:ems="10" />
+        
+        <TextView
+            android:id="@+id/book_detail_page_read"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/book_detail_page"
+            android:layout_toRightOf="@+id/book_detail_image"
+            android:ems="10" />
+
+</RelativeLayout>

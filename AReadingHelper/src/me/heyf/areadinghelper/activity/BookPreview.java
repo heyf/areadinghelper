@@ -3,24 +3,24 @@ package me.heyf.areadinghelper.activity;
 import java.sql.SQLException;
 
 import me.heyf.areadinghelper.R;
+import me.heyf.areadinghelper.utils.BookDetailView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class BookPreview extends BaseBookDetail {
+	
+	Button b;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_book_preview);
+		bookDetailView = (BookDetailView) this.findViewById(R.id.book_preview);
 		
-		t = (TextView) findViewById(R.id.book_preview_title);
-		b = (Button) findViewById(R.id.book_preview_button);
-		detailImageView = (ImageView) findViewById(R.id.book_preview_image);
+		b = (Button) this.findViewById(R.id.book_preview_button);
 				
 		b.setOnClickListener(new OnClickListener(){
 
@@ -38,5 +38,8 @@ public class BookPreview extends BaseBookDetail {
 			}
 			
 		});
+		
+		bookDetailView.setPageReadViewInvisible();
+		
 	}
 }

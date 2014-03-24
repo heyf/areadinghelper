@@ -11,8 +11,8 @@ public class Read {
 	public Book book;
 	@DatabaseField
 	public String comment;
-	@DatabaseField
-	public int type;
+//	@DatabaseField
+//	public int type;
 	
 	@DatabaseField
 	private long startTime;
@@ -21,9 +21,15 @@ public class Read {
 	
 	public Read(){};
 	
-	public Read(Book book, String comment, int type){
-		this.comment = comment;
-		this.type = type;
+	public Read(Book mBook){
+		this.book = mBook;
+		this.comment = "ÔÝÎÞÆÀÂÛ";
+		this.startTime = System.currentTimeMillis();
+		this.length = 0;
+		return;
+	}
+	
+	public void startReading(){
 		this.startTime = System.currentTimeMillis();
 		return;
 	}
@@ -33,34 +39,37 @@ public class Read {
 		return;
 	}
 	
+	public void leaveComment(String mComment){
+		this.comment = mComment;
+		return;
+	}
+	
 	public int getId(){
 		return id;
 	}
 		
-	public int getType(){
-		return type;
-	}
+//	public int getType(){
+//		return type;
+//	}
+//	
+//	public void setType(int type){
+//		this.type = type;
+//		return;
+//	}
 	
-	public void setType(int type){
-		this.type = type;
+	public void set(Book mBook, String mComment, long mStartTime, long mLength){
+		this.book = mBook;
+		this.comment = mComment;
+		this.startTime = mStartTime;
+		this.length = mLength;
 		return;
 	}
 	
 	public long getStartTime(){
-		return this.startTime;
-	}
-	
-	public void setStartTime(long startTime){
-		this.startTime = startTime;
-		return;
+		return startTime;
 	}
 	
 	public long getLength(){
-		return this.length;
-	}
-	
-	public void setLength(long length){
-		this.length = length;
-		return;
+		return length;
 	}
 }

@@ -15,7 +15,7 @@ import com.j256.ormlite.table.TableUtils;
 public class DatabaseOpenHelper extends OrmLiteSqliteOpenHelper {
 	
 	private static final String DATABASE_NAME = "areadinghelper.db"; 
-	private static final int DATABASE_VERSION = 6;
+	private static final int DATABASE_VERSION = 7;
 	
 	private Dao<Book, Integer> bookDao = null;
 	private Dao<Read, Integer> readDao = null;
