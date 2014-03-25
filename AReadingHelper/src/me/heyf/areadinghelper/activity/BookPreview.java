@@ -3,7 +3,7 @@ package me.heyf.areadinghelper.activity;
 import java.sql.SQLException;
 
 import me.heyf.areadinghelper.R;
-import me.heyf.areadinghelper.utils.BookDetailView;
+import me.heyf.areadinghelper.view.BookDetailView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;

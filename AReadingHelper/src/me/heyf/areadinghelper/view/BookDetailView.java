@@ -1,4 +1,4 @@
-package me.heyf.areadinghelper.utils;
+package me.heyf.areadinghelper.view;
 
 import me.heyf.areadinghelper.R;
 import android.content.Context;

@@ -9,7 +9,7 @@ import java.util.Locale;
 
 import me.heyf.areadinghelper.R;
 import me.heyf.areadinghelper.model.Read;
-import me.heyf.areadinghelper.utils.BookDetailView;
+import me.heyf.areadinghelper.view.BookDetailView;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;

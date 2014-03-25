@@ -15,6 +15,8 @@ public class Read {
 //	public int type;
 	
 	@DatabaseField
+	public int page_read;
+	@DatabaseField
 	private long startTime;
 	@DatabaseField
 	private long length;
@@ -25,6 +27,7 @@ public class Read {
 		this.book = mBook;
 		this.comment = "ÔİÎŞÆÀÂÛ";
 		this.startTime = System.currentTimeMillis();
+		this.page_read = 0;
 		this.length = 0;
 		return;
 	}

@@ -34,11 +34,7 @@ public class Book implements Parcelable {
 	
 	//plan
 	@DatabaseField
-	public int plan_type;
-	@DatabaseField
 	public int page_read;
-//	@DatabaseField
-//	public long plan_time;
 	
 	//runtime
 	
@@ -52,9 +48,7 @@ public class Book implements Parcelable {
 			douban_id = bookJSON.getInt("id");
 			Log.d("parse_douban id", Integer.toString(douban_id));
 			publisher = bookJSON.getString("publisher");
-			//pages = Integer.parseInt(bookJSON.getString("pages"));
 			pages = bookJSON.getInt("pages");
-			plan_type = 0;
 			page_read = 0;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -76,9 +70,7 @@ public class Book implements Parcelable {
 			mBook.comment = source.readString();
 			mBook.pages = source.readInt();
 			mBook.current_state = source.readInt();
-			mBook.plan_type = source.readInt();
 			mBook.page_read = source.readInt();
-			//mBook.plan_time = source.readLong();
 			return mBook;
 		}
 
@@ -105,9 +97,7 @@ public class Book implements Parcelable {
 		dest.writeString(comment);
 		dest.writeInt(pages);
 		dest.writeInt(current_state);
-		dest.writeInt(plan_type);
 		dest.writeInt(page_read);
-		//dest.writeLong(plan_time);
 	}
 
 	public int getId(){
