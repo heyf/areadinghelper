@@ -109,9 +109,7 @@ public class BookDetail extends BaseBookDetail {
 				SimpleDateFormat formatter = new SimpleDateFormat("MM月dd日 HH:mm", Locale.CHINA);
 				holder.startTime.setText(formatter.format(startDate));
 				
-				Date lengthDate = new Date(reads.get(position).getLength());
-				SimpleDateFormat lengthFormatter = new SimpleDateFormat("HH小时mm分ss秒",Locale.CHINA);
-				holder.length.setText(lengthFormatter.format(lengthDate));
+				holder.length.setText(reads.get(position).getLengthString());
 				
 				return convertView;
 			}

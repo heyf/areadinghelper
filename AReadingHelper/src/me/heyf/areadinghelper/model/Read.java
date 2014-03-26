@@ -75,4 +75,19 @@ public class Read {
 	public long getLength(){
 		return length;
 	}
+	
+	public String getLengthString(){
+		int sec = (int) length / 1000;
+		int min = sec / 60;
+		int hour = min / 60;
+		String lengthString = sec + " Ãë";
+		if(min>0) {
+			lengthString = min + " ·Ö  ";
+		}
+		if(hour>0){
+			lengthString = hour + " Ð¡Ê± " + lengthString;
+		}
+		
+		return lengthString;
+	}
 }

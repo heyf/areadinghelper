@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/book_detail_image"
             android:layout_alignTop="@+id/book_detail_image"
-            android:textSize="30sp" />
+            android:textSize="30sp" 
+            android:lines="1"/>
         
         <TextView
             android:id="@+id/book_detail_author"
