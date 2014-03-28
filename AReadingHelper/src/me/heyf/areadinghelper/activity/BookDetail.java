@@ -10,10 +10,13 @@ import java.util.Locale;
 import me.heyf.areadinghelper.R;
 import me.heyf.areadinghelper.model.Read;
 import me.heyf.areadinghelper.view.BookDetailView;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -31,6 +34,8 @@ public class BookDetail extends BaseBookDetail {
 	static final int READING = 2;
 	
 	int flag = 1;
+	
+	int chosenId = -1;
 	
 	Button buttonSubmit;
 	Dao<Read, Integer> readDao = null;
@@ -141,9 +146,43 @@ public class BookDetail extends BaseBookDetail {
 		
 		ListView l = (ListView) findViewById(android.R.id.list);
 		l.setAdapter(la);
-	
+
+		l.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+					long id) {
+				Intent i = new Intent(BookDetail.this,AddReadComment.class);
+				i.putExtra("comment",reads.get(position).comment);
+				i.putExtra("read_position",position);
+				startActivityForResult(i,200);
+			}
+			
+		});
+
 	}
 	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		int position = data.getIntExtra("read_position", -1);
+		String comment = data.getStringExtra("comment");
+		if(position>-1){
+			reads.get(position).comment = comment;
+			try {
+				readDao.update(reads.get(position));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				la.notifyDataSetChanged();
+			}
+		} else {
+			// TODO invalid 
+		}
+
+	}
+
 	void onButtonInit(){
 		buttonSubmit.setBackgroundColor(CUSTOM_GREEN);
 		buttonSubmit.setText(R.string.book_detail_add_read);
@@ -174,6 +213,5 @@ public class BookDetail extends BaseBookDetail {
 			la.notifyDataSetChanged();
 		}
 	}
-	
-	
+
 }

@@ -21,5 +21,9 @@
 	<string name="book_detail_add_plan">新增计划</string>
 	<string name="book_detail_add_read">开始阅读</string>
 	<string name="book_detail_finish_read">结束阅读</string>
+	<string name="add_comment">添加书评</string>
+	<string name="add_comment_hint">感受？想法？</string>
+	<string name="submit">提交</string>
+	<string name="add_book_success">成功添加图书！</string>
 	<string name="minute">分钟</string>
 </resources>

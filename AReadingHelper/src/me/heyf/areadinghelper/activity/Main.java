@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -42,16 +43,24 @@ public class Main extends BaseBookList {
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 				Intent i = new Intent(Main.this,BookDetail.class);
 				i.putExtra("book", books.get(position));
-				startActivityForResult(i, 1);
+				startActivity(i);
 			}
 		});
 		
 		refresh();
 	}
-	
-	//菜单设置
-	
+		
     @Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		Toast toast = Toast.makeText(Main.this, R.string.add_book_success, Toast.LENGTH_SHORT);
+		toast.show();
+		refresh();
+	}
+    
+	//菜单设置
+
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -86,7 +95,7 @@ public class Main extends BaseBookList {
 	
 	private void gotoAddBook(){
 		Intent i = new Intent(Main.this,AddBook.class);
-		startActivity(i);
+		startActivityForResult(i,1);
 		return;
 	}
 }

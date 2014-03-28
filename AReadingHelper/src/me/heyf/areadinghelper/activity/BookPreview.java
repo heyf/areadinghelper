@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import me.heyf.areadinghelper.R;
 import me.heyf.areadinghelper.view.BookDetailView;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,8 +31,8 @@ public class BookPreview extends BaseBookDetail {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} finally {
-					Intent i = new Intent(BookPreview.this,Main.class);
-					startActivity(i);					
+					BookPreview.this.setResult(RESULT_OK);
+					BookPreview.this.finish();
 				}
 			}
 			

@@ -69,4 +69,15 @@ public class AddBook extends BaseBookList {
 			});
 
 	    }
+
+		@Override
+		protected void onActivityResult(int requestCode, int resultCode,
+				Intent data) {
+			// TODO Auto-generated method stub
+			super.onActivityResult(requestCode, resultCode, data);
+			AddBook.this.setResult(RESULT_OK);
+			AddBook.this.finish();
+		}
+		
+		
 }
