@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
     android:orientation="vertical" >
 
     <me.heyf.areadinghelper.view.BookDetailView
@@ -9,33 +11,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
     />
-
-    <LinearLayout
-        android:id="@+id/layout_book_detail_buttons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/book_detail" >
-
-        <Button
-            android:id="@+id/button_book_detail_add_read"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/book_detail_add_read" />
-
-        <Button
-            android:id="@+id/button_book_detail_finish_read"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/book_detail_finish_read"
-            android:visibility="invisible" />
-
-    </LinearLayout>
+    
+	<Button
+            android:id="@+id/button_book_detail_submit"
+            android:layout_width="fill_parent"
+            android:layout_margin="30dp"
+            android:layout_height="wrap_content" 
+            android:layout_below="@+id/book_detail"/>
     
     <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/layout_book_detail_buttons" >
+        android:layout_below="@+id/button_book_detail_submit" >
     </ListView>
     
 </RelativeLayout>

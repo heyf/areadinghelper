@@ -5,7 +5,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName="read")
 public class Read {
-	@DatabaseField(generatedId = true)
+	@DatabaseField(generatedId = true,columnName="read_id")
 	private int id;
 	@DatabaseField(foreign = true)
 	public Book book;

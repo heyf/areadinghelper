@@ -20,11 +20,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 public class BookDetail extends BaseBookDetail {
-
-	Button buttonAddRead;
-	Button buttonFinishRead;
+	
+	static final int CUSTOM_RED = 0xffff4444;
+	static final int CUSTOM_GREEN = 0xff99CC00;
+	
+	static final int STANDING_BY = 1;
+	static final int READING = 2;
+	
+	int flag = 1;
+	
+	Button buttonSubmit;
 	Dao<Read, Integer> readDao = null;
 	
 	List<Read> reads = new ArrayList<Read>();
@@ -38,34 +46,49 @@ public class BookDetail extends BaseBookDetail {
 		setContentView(R.layout.ac_book_detail);
 		bookDetailView = (BookDetailView) this.findViewById(R.id.book_detail);
 		
-		buttonAddRead = (Button) this.findViewById(R.id.button_book_detail_add_read);
-		buttonAddRead.setOnClickListener(new OnClickListener(){
+		buttonSubmit = (Button) this.findViewById(R.id.button_book_detail_submit);
+		buttonSubmit.setOnClickListener(new OnClickListener(){
+					
 			@Override
 			public void onClick(View v) {
+				switch(flag){
+				case STANDING_BY:
+					onStartReading();
+					break;
+				case READING:
+					onFinishReading();
+					break;
+				default:
+					onButtonInit();
+					break;
+				}
+					
+			}
+			
+			void onStartReading(){
+				buttonSubmit.setBackgroundColor(CUSTOM_RED);
+				buttonSubmit.setText(R.string.book_detail_finish_read);
 				read = new Read(book);
 				read.startReading();
-				buttonAddRead.setVisibility(View.INVISIBLE);
-				buttonFinishRead.setVisibility(View.VISIBLE);
+				flag = READING;
 			}
-		});
-		
-		buttonFinishRead = (Button) this.findViewById(R.id.button_book_detail_finish_read);
-		buttonFinishRead.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
+			
+			void onFinishReading(){
 				read.finishReading();
-				reads.add(read);
+				reads.add(0,read);
 				try {
 					readDao.create(read);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				} finally {
+					onButtonInit();
+					la.notifyDataSetChanged();
 				}
-				la.notifyDataSetChanged();
-				buttonAddRead.setVisibility(View.VISIBLE);
-				buttonFinishRead.setVisibility(View.INVISIBLE);
 			}
+
 		});
+		onButtonInit();
 		
 		la = new BaseAdapter(){
 			
@@ -120,6 +143,12 @@ public class BookDetail extends BaseBookDetail {
 		l.setAdapter(la);
 	
 	}
+	
+	void onButtonInit(){
+		buttonSubmit.setBackgroundColor(CUSTOM_GREEN);
+		buttonSubmit.setText(R.string.book_detail_add_read);
+		flag = STANDING_BY;
+	}
 
 	@Override
 	protected void onStart() {
@@ -134,7 +163,11 @@ public class BookDetail extends BaseBookDetail {
 	
 	public void refresh(){
 		try {
-			reads = readDao.queryForEq("book_id", book);
+			//reads = readDao.queryForEq("book_id", book);
+			QueryBuilder<Read,Integer> qb = readDao.queryBuilder();
+			qb.orderBy("read_id", false);
+			qb.where().eq("book_id",book);
+			reads = qb.query();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
