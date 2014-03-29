@@ -1,11 +1,8 @@
 package me.heyf.areadinghelper.activity;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import me.heyf.areadinghelper.R;
 import me.heyf.areadinghelper.model.Read;
@@ -99,7 +96,8 @@ public class BookDetail extends BaseBookDetail {
 			
 			class ViewHolder {
 				public TextView comment;
-				public TextView startTime;
+				public TextView month;
+				public TextView day_of_month;
 				public TextView length;
 			}
 
@@ -125,18 +123,16 @@ public class BookDetail extends BaseBookDetail {
 					convertView = getLayoutInflater().inflate(R.layout.item_read,parent,false);
 					holder = new ViewHolder();
 					holder.comment = (TextView) convertView.findViewById(R.id.read_comment);
-					holder.startTime = (TextView) convertView.findViewById(R.id.read_start_time);
+					holder.month = (TextView) convertView.findViewById(R.id.read_month);
+					holder.day_of_month = (TextView) convertView.findViewById(R.id.read_day_of_month);
 					holder.length = (TextView) convertView.findViewById(R.id.read_length);
 					convertView.setTag(holder);
 				} else {
 					holder = (ViewHolder) convertView.getTag();
 				}
 				holder.comment.setText(reads.get(position).comment);
-				
-				Date startDate = new Date(reads.get(position).getStartTime());
-				SimpleDateFormat formatter = new SimpleDateFormat("MM‘¬dd»’ HH:mm", Locale.CHINA);
-				holder.startTime.setText(formatter.format(startDate));
-				
+				holder.month.setText(reads.get(position).getMonthString());
+				holder.day_of_month.setText(reads.get(position).getDayString());				
 				holder.length.setText(reads.get(position).getLengthString());
 				
 				return convertView;
@@ -152,7 +148,7 @@ public class BookDetail extends BaseBookDetail {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long id) {
-				Intent i = new Intent(BookDetail.this,AddReadComment.class);
+				Intent i = new Intent(BookDetail.this,EditRead.class);
 				i.putExtra("comment",reads.get(position).comment);
 				i.putExtra("read_position",position);
 				startActivityForResult(i,200);

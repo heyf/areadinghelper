@@ -26,4 +26,11 @@
 	<string name="submit">提交</string>
 	<string name="add_book_success">成功添加图书！</string>
 	<string name="minute">分钟</string>
+	<string name="main_empty">空空如也</string>
+	<!-- Samples -->
+	<string name="sample_month">Dec</string>
+	<string name="sample_day_of_month">6</string>
+	<string name="sample_comment">好书！\n要顶！\n</string>
+	<string name="sample_length">3 时 14 分</string>
+	
 </resources>

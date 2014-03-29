@@ -1,28 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
+    android:paddingTop="5dp"
     android:orientation="vertical" >
+    
+    <LinearLayout
+        android:id="@+id/item_read_left_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dip"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/read_comment"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:textSize="22sp" />
-        
-    <TextView
-        android:id="@+id/read_start_time"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dip"
-        android:textSize="22sp" />
+        <TextView
+            android:id="@+id/read_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="3dp"
+            android:textSize="15sp"
+            android:lineSpacingMultiplier="0.6"
+            android:text="@string/sample_month"/>
+
+        <TextView
+            android:id="@+id/read_day_of_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/sample_day_of_month"
+            android:lineSpacingMultiplier="0.8"
+            android:textSize="22sp" />
+
+    </LinearLayout>
     
-    <TextView
-        android:id="@+id/read_length"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/item_read_left_layout"
         android:layout_marginLeft="20dip"
-        android:textSize="22sp" />
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/read_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/sample_length" />
+
+        <TextView
+            android:id="@+id/read_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp" 
+            android:text="@string/sample_comment"/>
+    </LinearLayout>
     
-</LinearLayout>
+</RelativeLayout>

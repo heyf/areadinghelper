@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -22,11 +23,13 @@ public class Main extends BaseBookList {
 
 	private DatabaseOpenHelper doh = null;
 	private Dao<Book, Integer> bookDao = null;
+	
+	TextView tv;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ac_book_list);
+		setContentView(R.layout.ac_main);
 
 		doh = OpenHelperManager.getHelper(this, DatabaseOpenHelper.class);
 		try {
@@ -35,7 +38,7 @@ public class Main extends BaseBookList {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+						
 		ListView l = (ListView) findViewById(R.id.book_list);
 		l.setAdapter(ia);
 		l.setOnItemClickListener(new OnItemClickListener(){
@@ -88,6 +91,11 @@ public class Main extends BaseBookList {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			if(books.size()==0){
+				tv = (TextView) this.findViewById(R.id.text_main_on_empty);
+				tv.setVisibility(View.VISIBLE);
+			}
 		}
 		ia.notifyDataSetChanged();
 		return;

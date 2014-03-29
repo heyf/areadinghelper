@@ -1,5 +1,7 @@
 package me.heyf.areadinghelper.model;
 
+import java.util.Calendar;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -20,6 +22,10 @@ public class Read {
 	private long startTime;
 	@DatabaseField
 	private long length;
+	
+	private Calendar startDate = null;
+	private static final String[] MONTHS = new String[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+		"Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 	
 	public Read(){};
 	
@@ -89,5 +95,25 @@ public class Read {
 		}
 		
 		return lengthString;
+	}
+	
+	public String getMonthString(){
+		Calendar c = getStartDate();
+		int month = c.get(Calendar.MONTH);
+		return MONTHS[month];
+	}
+	
+	public String getDayString(){
+		Calendar c = getStartDate();
+		int day = c.get(Calendar.DAY_OF_MONTH);
+		return Integer.toString(day);
+	}
+	
+	private Calendar getStartDate(){
+		if(startDate==null){
+			startDate = Calendar.getInstance();
+			startDate.setTimeInMillis(startTime);
+		}
+		return startDate;
 	}
 }

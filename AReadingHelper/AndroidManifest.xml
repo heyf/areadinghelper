@@ -31,7 +31,7 @@
         </activity>
         <activity android:name="me.heyf.areadinghelper.activity.BookPreview"></activity>
         <activity android:name="me.heyf.areadinghelper.activity.AddBook"></activity>
-        <activity android:name="me.heyf.areadinghelper.activity.AddReadComment"></activity>
+        <activity android:name="me.heyf.areadinghelper.activity.EditRead"></activity>
         <activity android:name="me.heyf.areadinghelper.activity.BookDetail"></activity>
     </application>
 

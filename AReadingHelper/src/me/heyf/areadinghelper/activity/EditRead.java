@@ -9,7 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class AddReadComment extends Activity {
+public class EditRead extends Activity {
 	
 	EditText et;
 	Button b;
@@ -21,7 +21,7 @@ public class AddReadComment extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.ac_add_comment);
+		setContentView(R.layout.ac_edit_comment);
 		
 		et = (EditText) this.findViewById(R.id.edittext_add_comment);
 		b = (Button) this.findViewById(R.id.button_add_comment_submit);
@@ -38,8 +38,8 @@ public class AddReadComment extends Activity {
 				Intent i = new Intent();
 				i.putExtra("comment", comment);
 				i.putExtra("read_position", read_position);
-				AddReadComment.this.setResult(RESULT_OK, i);
-				AddReadComment.this.finish();
+				EditRead.this.setResult(RESULT_OK, i);
+				EditRead.this.finish();
 			}
 			
 		});
