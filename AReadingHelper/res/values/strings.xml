@@ -21,16 +21,31 @@
 	<string name="book_detail_add_plan">新增计划</string>
 	<string name="book_detail_add_read">开始阅读</string>
 	<string name="book_detail_finish_read">结束阅读</string>
-	<string name="add_comment">添加书评</string>
 	<string name="add_comment_hint">感受？想法？</string>
 	<string name="submit">提交</string>
 	<string name="add_book_success">成功添加图书！</string>
 	<string name="minute">分钟</string>
 	<string name="main_empty">空空如也</string>
+	<!-- Titles -->
+	<string name="main_title">我的图书</string>
+	<string name="add_comment">添加书评</string>
 	<!-- Samples -->
 	<string name="sample_month">Dec</string>
 	<string name="sample_day_of_month">6</string>
 	<string name="sample_comment">好书！\n要顶！\n</string>
 	<string name="sample_length">3 时 14 分</string>
-	
+	<string name="sample_author">村上春树</string>
+	<string name="sample_title">挪威的森林</string>
+	<!-- Dialog -->
+	<string name="disgard_changes">不保存更改？</string>
+	<string name="ok">确认</string>
+	<string name="cancel">取消</string>
+	<!-- Activity AddBook -->
+	<string name="add_book_activity_title">从豆瓣中添加</string>
+	<string name="menu_search">查找</string>
+	<string name="onquery">查询中……</string>
+	<string name="search_hint">书名、作者、条形码</string>
+	<string name="on_empty_result_prefix">关键词“</string>
+	<string name="on_empty_result_surfix">”啥都没查到哦</string>
+	<string name="on_have_result">查询成功</string>
 </resources>

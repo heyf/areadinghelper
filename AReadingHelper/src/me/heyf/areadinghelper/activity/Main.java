@@ -6,6 +6,7 @@ import me.heyf.areadinghelper.R;
 import me.heyf.areadinghelper.model.Book;
 import me.heyf.areadinghelper.utils.DatabaseOpenHelper;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +31,8 @@ public class Main extends BaseBookList {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_main);
+		
+		getActionBar().setTitle(R.string.main_title);
 
 		doh = OpenHelperManager.getHelper(this, DatabaseOpenHelper.class);
 		try {
@@ -38,6 +41,8 @@ public class Main extends BaseBookList {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		tv = (TextView) this.findViewById(R.id.text_main_on_empty);
 						
 		ListView l = (ListView) findViewById(R.id.book_list);
 		l.setAdapter(ia);
@@ -56,9 +61,11 @@ public class Main extends BaseBookList {
     @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		Toast toast = Toast.makeText(Main.this, R.string.add_book_success, Toast.LENGTH_SHORT);
-		toast.show();
-		refresh();
+		if(resultCode==RESULT_OK){
+			Toast toast = Toast.makeText(Main.this, R.string.add_book_success, Toast.LENGTH_SHORT);
+			toast.show();
+			refresh();
+		}
 	}
     
 	//≤Àµ•…Ë÷√
@@ -85,19 +92,7 @@ public class Main extends BaseBookList {
     }
     
 	private void refresh() {
-		books.clear();
-		try {
-			books = bookDao.queryForAll();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if(books.size()==0){
-				tv = (TextView) this.findViewById(R.id.text_main_on_empty);
-				tv.setVisibility(View.VISIBLE);
-			}
-		}
-		ia.notifyDataSetChanged();
+		new MainTask().execute();
 		return;
 	}
 	
@@ -106,4 +101,34 @@ public class Main extends BaseBookList {
 		startActivityForResult(i,1);
 		return;
 	}
+	
+	private class MainTask extends AsyncTask<Void,Integer,Void>{
+
+		@Override
+		protected void onPreExecute() {
+			books.clear();
+		}
+		
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			try {
+				books = bookDao.queryForAll();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} 
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			if(books.size()==0){
+				tv.setVisibility(View.VISIBLE);
+			} else {
+				tv.setVisibility(View.INVISIBLE);
+			}
+			ia.notifyDataSetChanged();
+		}
+		
+	}
+	
 }

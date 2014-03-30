@@ -2,8 +2,12 @@ package me.heyf.areadinghelper.activity;
 
 import me.heyf.areadinghelper.R;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,6 +26,8 @@ public class EditRead extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_edit_comment);
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		et = (EditText) this.findViewById(R.id.edittext_add_comment);
 		b = (Button) this.findViewById(R.id.button_add_comment_submit);
@@ -47,7 +53,51 @@ public class EditRead extends Activity {
 		
 		
 	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+		case android.R.id.home:
+			showAlert();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+				
+	}
+			
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			showAlert();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	public void showAlert(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(EditRead.this);
+		builder.setMessage(R.string.disgard_changes);
+		builder.setPositiveButton(R.string.ok,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						onReturn();
+					}
+				});
+		builder.setNegativeButton(R.string.cancel,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// User cancelled the dialog
+					}
+				});
+		AlertDialog d = builder.create();
+		d.show();
+		return;
+	}
 	
-	
+	public void onReturn(){
+		EditRead.this.setResult(RESULT_CANCELED);
+		EditRead.this.finish();
+		return;
+	}
 
 }

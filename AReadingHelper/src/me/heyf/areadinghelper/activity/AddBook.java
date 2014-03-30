@@ -8,55 +8,32 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class AddBook extends BaseBookList {
+	
+		TextView query_result;
+		String query_string;
+		Toast toast;
 
 		@Override
 	    protected void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.ac_add_book);
 	        
-	        Button b = (Button)findViewById(R.id.main_button);
-	        b.setOnClickListener(new OnClickListener(){
-	    		@Override
-	    		public void onClick(View arg0) {
-	    			EditText et = (EditText) findViewById(R.id.editText1);
-	    			String query = et.getText().toString();
-	    			//Log.d("query",query);
-	    			AsyncHttpClient client = new AsyncHttpClient();
-	    			String url = "http://api.douban.com/v2/book/search?q="+ query;
-	    			client.get(url, new AsyncHttpResponseHandler(){
-	    				@Override
-	    				public void onSuccess(String response) {
-	    					books.clear();
-	    					try {
-	    						JSONObject jo = new JSONObject(response);
-	    						int count = jo.getInt("count");
-	    						booksArray = jo.getJSONArray("books");
-	    						for(int i=0;i<count;i++){
-	    							Book book = new Book(booksArray.getJSONObject(i));
-	    							books.add(book);
-	    						}
-	    						ia.notifyDataSetChanged();
-	    					} catch (JSONException e) {
-	    						e.printStackTrace();
-	    					}
-	    				}
-	    			});
-	    		}
-	        });
-	        			
-			//query list
+	        query_result = (TextView) findViewById(R.id.query_result);
+	        query_result.setText("");
+
 			ListView l = (ListView) findViewById(android.R.id.list);
 			l.setAdapter(ia);
 			l.setOnItemClickListener(new OnItemClickListener(){
@@ -67,9 +44,72 @@ public class AddBook extends BaseBookList {
 					startActivityForResult(i, 1);
 				}
 			});
-
+			
 	    }
-
+		
+		@Override
+	    public boolean onCreateOptionsMenu(Menu menu) {
+	        // Inflate the menu; this adds items to the action bar if it is present.
+	        getMenuInflater().inflate(R.menu.add_book, menu);
+	        SearchView searchItem = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+	        searchItem.setSubmitButtonEnabled(true);
+	        searchItem.setIconified(false);
+	        
+	        searchItem.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+				
+				@Override
+				public boolean onQueryTextSubmit(String query) {
+					query_string = query;
+					toast = Toast.makeText(getApplicationContext(), R.string.onquery, Toast.LENGTH_LONG);
+					toast.show();
+					return search(query);
+				}
+				
+				@Override
+				public boolean onQueryTextChange(String newText) {
+					// TODO Auto-generated method stub
+					return false;
+				}
+			});
+	        return true;
+	    }
+		
+		public boolean search(String query){
+			AsyncHttpClient client = new AsyncHttpClient();
+			String url = "http://api.douban.com/v2/book/search?q="+ query;
+			client.get(url, new AsyncHttpResponseHandler(){
+				@Override
+				public void onSuccess(String response) {
+					books.clear();
+					try {
+						JSONObject jo = new JSONObject(response);
+						int count = jo.getInt("count");
+						booksArray = jo.getJSONArray("books");
+						for(int i=0;i<count;i++){
+							Book book = new Book(booksArray.getJSONObject(i));
+							books.add(book);
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					} finally {
+						toast.cancel();
+						if(books.size()==0){
+							toast = Toast.makeText(getApplicationContext(), 
+									getResources().getString(R.string.on_empty_result_prefix) +
+									query_string + getResources().getString(R.string.on_empty_result_surfix), 
+									Toast.LENGTH_LONG);
+							toast.show();
+						} else {
+							toast = Toast.makeText(getApplicationContext(), R.string.on_have_result, Toast.LENGTH_SHORT);
+							toast.show();
+						}
+						ia.notifyDataSetChanged();
+					}
+				}
+			});
+			return true;
+		}
+	    
 		@Override
 		protected void onActivityResult(int requestCode, int resultCode,
 				Intent data) {
@@ -78,6 +118,4 @@ public class AddBook extends BaseBookList {
 			AddBook.this.setResult(RESULT_OK);
 			AddBook.this.finish();
 		}
-		
-		
 }

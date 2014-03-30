@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import me.heyf.areadinghelper.R;
 import me.heyf.areadinghelper.model.Book;
 import me.heyf.areadinghelper.utils.DatabaseOpenHelper;
-import me.heyf.areadinghelper.view.BookDetailView;
+import me.heyf.areadinghelper.widget.BookDetailView;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;

@@ -6,7 +6,7 @@ import java.util.List;
 
 import me.heyf.areadinghelper.R;
 import me.heyf.areadinghelper.model.Read;
-import me.heyf.areadinghelper.view.BookDetailView;
+import me.heyf.areadinghelper.widget.BookDetailView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -46,6 +46,9 @@ public class BookDetail extends BaseBookDetail {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_book_detail);
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		bookDetailView = (BookDetailView) this.findViewById(R.id.book_detail);
 		
 		buttonSubmit = (Button) this.findViewById(R.id.button_book_detail_submit);
@@ -161,6 +164,9 @@ public class BookDetail extends BaseBookDetail {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode!=RESULT_OK){
+			return;
+		}
 		int position = data.getIntExtra("read_position", -1);
 		String comment = data.getStringExtra("comment");
 		if(position>-1){
@@ -178,7 +184,7 @@ public class BookDetail extends BaseBookDetail {
 		}
 
 	}
-
+	
 	void onButtonInit(){
 		buttonSubmit.setBackgroundColor(CUSTOM_GREEN);
 		buttonSubmit.setText(R.string.book_detail_add_read);
@@ -197,17 +203,25 @@ public class BookDetail extends BaseBookDetail {
 	}
 	
 	public void refresh(){
-		try {
-			//reads = readDao.queryForEq("book_id", book);
-			QueryBuilder<Read,Integer> qb = readDao.queryBuilder();
-			qb.orderBy("read_id", false);
-			qb.where().eq("book_id",book);
-			reads = qb.query();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			la.notifyDataSetChanged();
-		}
+		new Thread(){
+
+			@Override
+			public void run() {
+				try {
+					//reads = readDao.queryForEq("book_id", book);
+					QueryBuilder<Read,Integer> qb = readDao.queryBuilder();
+					qb.orderBy("read_id", false);
+					qb.where().eq("book_id",book);
+					reads = qb.query();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					la.notifyDataSetChanged();
+				}
+			}
+			
+		}.start();
+
 	}
 
 }

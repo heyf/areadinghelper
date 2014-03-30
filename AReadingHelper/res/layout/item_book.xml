@@ -21,7 +21,8 @@
             android:id="@+id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
+            android:layout_marginLeft="5dip"
+            android:text="@string/sample_title"
             android:textSize="22sp" 
             android:lines="1"/>
         
@@ -29,8 +30,10 @@
             android:id="@+id/author"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:textSize="22sp" />
+            android:layout_marginLeft="5dip"
+            android:text="@string/sample_author"
+            android:textSize="13sp"
+            android:textColor="#FF888888" />
 
     </LinearLayout>
 
