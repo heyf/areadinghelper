@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AReadingHelper</string>
-    <string name="action_add_book">新增图书</string>
-    <string name="action_refresh">刷新</string>
     <string name="action_gotolist">前往图书列表</string>
     <string name="hello_world">Query</string>
     <string name="button">查找</string>
@@ -10,22 +7,6 @@
 	<string name="preview_add">添加这本书</string>
 	<string name="drawer_open">选择一本书</string>
 	<string name="drawer_close">添加一本书</string>
-	<string name="add_plan_comment">添加计划内容</string>
-	<string name="add_plan_comment_hint">计划怎样阅读这本书呢？</string>
-	<string name="add_plan_time">计划时长</string>
-	<string name="add_plan_type">选择阅读类型</string>
-	<string name="add_plan_page">计划阅读页数</string>
-	<string name="add_plan_page_hint">全书共</string>
-	<string name="page">页</string>
-	<string name="add_plan_submit">提交</string>
-	<string name="book_detail_add_plan">新增计划</string>
-	<string name="book_detail_add_read">开始阅读</string>
-	<string name="book_detail_finish_read">结束阅读</string>
-	<string name="add_comment_hint">感受？想法？</string>
-	<string name="submit">提交</string>
-	<string name="add_book_success">成功添加图书！</string>
-	<string name="minute">分钟</string>
-	<string name="main_empty">空空如也</string>
 	<!-- Titles -->
 	<string name="main_title">我的图书</string>
 	<string name="add_comment">添加书评</string>
@@ -36,10 +17,20 @@
 	<string name="sample_length">3 时 14 分</string>
 	<string name="sample_author">村上春树</string>
 	<string name="sample_title">挪威的森林</string>
+	<string name="sample_pages">57/364</string>
+	<string name="sample_percent">15.6%</string>
+	<string name="sample_date">2014/3/30</string>
+	<string name="sample_page">57</string>
+	<string name="sample_page_of_book">364</string>
 	<!-- Dialog -->
 	<string name="disgard_changes">不保存更改？</string>
 	<string name="ok">确认</string>
 	<string name="cancel">取消</string>
+	<!-- Activity Main -->
+	<string name="action_add_book">新增图书</string>
+	<string name="delete_success">删除成功</string>
+	<string name="main_empty">空空如也</string>
+	<string name="add_book_success">成功添加图书！</string>
 	<!-- Activity AddBook -->
 	<string name="add_book_activity_title">从豆瓣中添加</string>
 	<string name="menu_search">查找</string>
@@ -48,4 +39,32 @@
 	<string name="on_empty_result_prefix">关键词“</string>
 	<string name="on_empty_result_surfix">”啥都没查到哦</string>
 	<string name="on_have_result">查询成功</string>
+	<string name="invalid_request">内部参数错误，好像程序出bug了</string>
+	<!-- Activity BookDetail -->
+	<string name="action_delete_book">删除此书</string>
+	<string name="confirm_delete_book">确认删除此书？</string>
+	<string name="book_detail_add_plan">新增计划</string>
+	<string name="book_detail_add_read">开始阅读</string>
+	<string name="book_detail_finish_read">结束阅读</string>
+	<!-- Activity EditComment -->
+	<string name="add_comment_page_hint">读到</string>
+	<string name="add_comment_hint">感受？想法？</string>
+	<!-- Activity AddPlan -->
+	<string name="add_plan_comment">添加计划内容</string>
+	<string name="add_plan_comment_hint">计划怎样阅读这本书呢？</string>
+	<string name="add_plan_time">计划时长</string>
+	<string name="add_plan_type">选择阅读类型</string>
+	<string name="add_plan_page">计划阅读页数</string>
+	<string name="add_plan_page_hint">全书共</string>
+	<string name="add_plan_submit">提交</string>
+	<!-- General -->
+	<string name="app_name">AReadingHelper</string>
+	<string name="submit">提交</string>
+	<string name="page">页</string>
+	<string name="action_refresh">刷新</string>
+	<string name="minute">分钟</string>
+	<color name="background_grey">#BBBBBB</color>
+	<color name="white">#FFFFFF</color>
+	<color name="android_green">#FF99CC00</color>
+	<color name="android_red">#FFFF4444</color>
 </resources>

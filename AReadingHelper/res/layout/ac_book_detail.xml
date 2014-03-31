@@ -1,29 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
+    android:background="@color/background_grey"
     android:orientation="vertical" >
 
-    <me.heyf.areadinghelper.widget.BookDetailView
-        android:id="@+id/book_detail"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-    />
-    
-	<Button
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_margin="5dp"
+        android:padding="3dp" >
+
+        <Button
             android:id="@+id/button_book_detail_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/book_detail_add_plan" />
+
+        <TextView
+            android:id="@+id/textview_book_detail_pages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/button_book_detail_submit"
+            android:text="@string/sample_pages" />
+
+        <TextView
+            android:id="@+id/textview_book_detail_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/textview_book_detail_pages"
+            android:text="@string/sample_percent" />
+
+        <ProgressBar
+            android:id="@+id/progressbar_book_detail"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
-            android:layout_margin="30dp"
-            android:layout_height="wrap_content" 
-            android:layout_below="@+id/book_detail"/>
-    
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview_book_detail_pages"
+            android:layout_toRightOf="@+id/button_book_detail_submit" />
+    </RelativeLayout>
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/button_book_detail_submit" >
+        android:layout_marginLeft="5dp"
+    	android:layout_marginRight="5dp">
     </ListView>
-    
-</RelativeLayout>
+
+</LinearLayout>

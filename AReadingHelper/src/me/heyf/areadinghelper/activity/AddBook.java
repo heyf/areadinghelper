@@ -22,6 +22,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class AddBook extends BaseBookList {
 	
+	public static final int INVALID_REQUEST = 90001;
+	
 		TextView query_result;
 		String query_string;
 		Toast toast;
@@ -40,7 +42,13 @@ public class AddBook extends BaseBookList {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 					Intent i = new Intent(AddBook.this,BookPreview.class);
-					i.putExtra("book",books.get(position));
+					JSONObject bookJSON = null;
+					try {
+						bookJSON = booksArray.getJSONObject(position);
+					} catch (JSONException e1) {
+						e1.printStackTrace();
+					}
+					i.putExtra("bookJSON",bookJSON.toString());
 					startActivityForResult(i, 1);
 				}
 			});
@@ -67,7 +75,6 @@ public class AddBook extends BaseBookList {
 				
 				@Override
 				public boolean onQueryTextChange(String newText) {
-					// TODO Auto-generated method stub
 					return false;
 				}
 			});
@@ -113,9 +120,16 @@ public class AddBook extends BaseBookList {
 		@Override
 		protected void onActivityResult(int requestCode, int resultCode,
 				Intent data) {
-			// TODO Auto-generated method stub
 			super.onActivityResult(requestCode, resultCode, data);
-			AddBook.this.setResult(RESULT_OK);
-			AddBook.this.finish();
+			switch(resultCode){
+			case RESULT_OK:
+				AddBook.this.setResult(RESULT_OK);
+				AddBook.this.finish();
+				break;
+			case INVALID_REQUEST:
+				Toast.makeText(AddBook.this, R.string.invalid_request, Toast.LENGTH_SHORT).show();
+				break;
+			}
+
 		}
 }

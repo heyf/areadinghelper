@@ -2,59 +2,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:paddingTop="5dp"
-    android:orientation="vertical" >
-    
-    <LinearLayout
-        android:id="@+id/item_read_left_layout"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_marginTop="2dp"
+    android:padding="3dp" >
+
+    <TextView
+        android:id="@+id/read_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="20dip"
-        android:orientation="vertical" >
+        android:layout_marginLeft="5dp"
+        android:text="@string/sample_date"
+        android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/read_month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="3dp"
-            android:textSize="15sp"
-            android:lineSpacingMultiplier="0.6"
-            android:text="@string/sample_month"/>
-
-        <TextView
-            android:id="@+id/read_day_of_month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/sample_day_of_month"
-            android:lineSpacingMultiplier="0.8"
-            android:textSize="22sp" />
-
-    </LinearLayout>
-    
-    <LinearLayout
+    <TextView
+        android:id="@+id/read_length"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/item_read_left_layout"
-        android:layout_marginLeft="20dip"
-        android:orientation="vertical" >
+        android:layout_alignParentRight="true"
+        android:lineSpacingMultiplier="0.8"
+        android:text="@string/sample_length"
+        android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/read_length"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="@string/sample_length" />
+    <TextView
+        android:id="@+id/read_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/read_date"
+        android:layout_marginLeft="5dp"
+        android:text="@string/sample_comment"
+        android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/read_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="22sp" 
-            android:text="@string/sample_comment"/>
-    </LinearLayout>
-    
 </RelativeLayout>

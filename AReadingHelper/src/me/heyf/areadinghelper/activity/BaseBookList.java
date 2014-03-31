@@ -21,7 +21,6 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -29,26 +28,24 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 public class BaseBookList extends Activity {
 		
-	ImageLoader imageLoader = ImageLoader.getInstance();
+	ImageLoader imageLoader;
 	
-	DisplayImageOptions options = new DisplayImageOptions.Builder()
-	.showStubImage(R.drawable.ic_stub)
-	.showImageForEmptyUri(R.drawable.ic_empty)
-	.showImageOnFail(R.drawable.ic_error)
-	.cacheInMemory(true)
-	.cacheOnDisc(true)
-	.displayer(new RoundedBitmapDisplayer(20))
-	.build();;
+	DisplayImageOptions options;
 	
-	List<Book> books = new ArrayList<Book>();
-	JSONArray booksArray = new JSONArray();
+	List<Book> books;
+	JSONArray booksArray;
 	
-	MainListAdapter ia = new MainListAdapter();
+	BaseAdapter ia;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imageLoader.init(ImageLoaderConfiguration.createDefault(BaseBookList.this));
+                
+        imageLoader = ImageLoader.getInstance();
+        
+        books = new ArrayList<Book>();
+        
+    	booksArray = new JSONArray();
         
     	options = new DisplayImageOptions.Builder()
     	.showStubImage(R.drawable.ic_stub)
@@ -58,6 +55,8 @@ public class BaseBookList extends Activity {
     	.cacheOnDisc(true)
     	.displayer(new RoundedBitmapDisplayer(20))
     	.build();
+    	
+    	ia = new MainListAdapter();
 	}
 
 	class MainListAdapter extends BaseAdapter {
@@ -101,6 +100,7 @@ public class BaseBookList extends Activity {
 			}
 
 			holder.title.setText(books.get(position).name);
+			
 			holder.author.setText(books.get(position).author);
 
 			imageLoader.displayImage(books.get(position).image_url, holder.image, options, animateFirstListener);

@@ -2,18 +2,68 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/background_grey"
     android:orientation="vertical" >
-	
-    <me.heyf.areadinghelper.widget.BookDetailView
-        android:id="@+id/book_preview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-    />
 
-    <Button
-        android:id="@+id/book_preview_button"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/preview_upper_wrapper"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/preview_add" />
+        android:layout_margin="5dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="3dp" >
+
+        <ImageView
+            android:id="@+id/book_preview_image"
+            android:layout_width="100dip"
+            android:layout_height="120dip"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="3dip"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/descr_image"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/book_preview_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/book_preview_image"
+            android:layout_toRightOf="@+id/book_preview_image"
+            android:lines="1"
+            android:text="@string/sample_title"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/book_preview_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/book_preview_title"
+            android:layout_toRightOf="@+id/book_preview_image"
+            android:ems="10"
+            android:text="@string/sample_author"
+            android:textColor="#FF888888" />
+
+        <Button
+            android:id="@+id/book_preview_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_shape"
+            android:padding="5dp"
+            android:layout_alignBottom="@+id/book_preview_image"
+            android:layout_alignParentRight="true"
+            android:text="@string/preview_add" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/book_preview_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:padding="5dp"
+        android:ems="10" />
 
 </LinearLayout>

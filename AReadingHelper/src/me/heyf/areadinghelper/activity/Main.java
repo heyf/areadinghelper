@@ -19,8 +19,13 @@ import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class Main extends BaseBookList {
+	
+	public static final int DELETE_BOOK = 90016;
+	public static final int BOOK_DETAIL = 10000;
+	public static final int ADD_BOOK = 10001;
 
 	private DatabaseOpenHelper doh = null;
 	private Dao<Book, Integer> bookDao = null;
@@ -33,6 +38,8 @@ public class Main extends BaseBookList {
 		setContentView(R.layout.ac_main);
 		
 		getActionBar().setTitle(R.string.main_title);
+		
+		imageLoader.init(ImageLoaderConfiguration.createDefault(Main.this));
 
 		doh = OpenHelperManager.getHelper(this, DatabaseOpenHelper.class);
 		try {
@@ -51,7 +58,7 @@ public class Main extends BaseBookList {
 			public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 				Intent i = new Intent(Main.this,BookDetail.class);
 				i.putExtra("book", books.get(position));
-				startActivity(i);
+				startActivityForResult(i, BOOK_DETAIL);
 			}
 		});
 		
@@ -61,14 +68,46 @@ public class Main extends BaseBookList {
     @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if(resultCode==RESULT_OK){
-			Toast toast = Toast.makeText(Main.this, R.string.add_book_success, Toast.LENGTH_SHORT);
-			toast.show();
-			refresh();
+		switch(requestCode){
+		case ADD_BOOK:
+			switch(resultCode){
+			case RESULT_OK:
+				Toast toast = Toast.makeText(Main.this, R.string.add_book_success, Toast.LENGTH_SHORT);
+				toast.show();
+				break;
+			}
+			break;
+		case BOOK_DETAIL:
+			switch(resultCode){
+			case DELETE_BOOK:
+				deleteBook((Book) data.getParcelableExtra("book"));
+				break;
+			}
+			break;
 		}
+		refresh();
 	}
     
 	//≤Àµ•…Ë÷√
+
+	private void deleteBook(final Book parcelableExtra) {
+		new Thread(){
+
+			@Override
+			public void run() {
+				try {
+					bookDao.delete(parcelableExtra);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} finally {
+					ia.notifyDataSetChanged();
+					Toast.makeText(getApplicationContext(), R.string.delete_success , Toast.LENGTH_SHORT).show();
+				}
+			}
+			
+		}.run();		
+	}
 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,7 +131,7 @@ public class Main extends BaseBookList {
     }
     
 	private void refresh() {
-		new MainTask().execute();
+		new GetBooksTask().execute();
 		return;
 	}
 	
@@ -102,7 +141,7 @@ public class Main extends BaseBookList {
 		return;
 	}
 	
-	private class MainTask extends AsyncTask<Void,Integer,Void>{
+	private class GetBooksTask extends AsyncTask<Void,Integer,Void>{
 
 		@Override
 		protected void onPreExecute() {

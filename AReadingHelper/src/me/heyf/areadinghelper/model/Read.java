@@ -1,6 +1,12 @@
 package me.heyf.areadinghelper.model;
 
 import java.util.Calendar;
+import java.util.Date;
+
+import java.text.DateFormat;
+
+import android.text.Html;
+import android.text.Spanned;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -109,11 +115,26 @@ public class Read {
 		return Integer.toString(day);
 	}
 	
+	public String getDateString(){
+		Date d = new Date(startTime);
+		DateFormat sdf = DateFormat.getDateInstance();
+		return sdf.format(d);
+	}
+	
 	private Calendar getStartDate(){
 		if(startDate==null){
 			startDate = Calendar.getInstance();
 			startDate.setTimeInMillis(startTime);
 		}
 		return startDate;
+	}
+
+	public String getPageString() {
+		return Integer.toString(page_read);
+	}
+
+	public Spanned getComment() {
+		String html = "<font color=\"#99CC00\">"+page_read+"ҳ</font> "+comment;
+		return Html.fromHtml(html);
 	}
 }

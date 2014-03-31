@@ -12,13 +12,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class EditRead extends Activity {
 	
-	EditText et;
+	EditText editPage;
+	EditText editComment;
 	Button b;
 	
-	int read_position;
+	int readPosition;
+	int pageOfBook;
+	int pageOfComment;
 	String comment;
 	
 	@Override
@@ -29,21 +33,40 @@ public class EditRead extends Activity {
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
-		et = (EditText) this.findViewById(R.id.edittext_add_comment);
+		editComment = (EditText) this.findViewById(R.id.edittext_add_comment);
+		editPage = (EditText) this.findViewById(R.id.edittext_add_page);
 		b = (Button) this.findViewById(R.id.button_add_comment_submit);
 		
+		//Get intent extras
 		Intent i = getIntent();
-		read_position = i.getIntExtra("read_position", -1);
+		readPosition = i.getIntExtra("read_position", -1);
+		pageOfBook = i.getIntExtra("page_of_book", -1);
+		pageOfComment = i.getIntExtra("page_of_comment", -1);
 		comment = i.getStringExtra("comment");
+		
+		editComment.setText(comment);
+		editPage.setText(Integer.toString(pageOfComment));
 		
 		b.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View arg0) {
-				comment = et.getText().toString();
+				
+				comment = editComment.getText().toString();
+				if(editPage.getText()==null){
+					Toast.makeText(getApplicationContext(), "Ã»ÊäÈëÒ³Âë£¬Ç×", Toast.LENGTH_LONG).show();
+					return;
+				}
+				pageOfComment = Integer.parseInt(editPage.getText().toString());
+				if(pageOfComment<0||pageOfComment>pageOfBook){
+					Toast.makeText(getApplicationContext(), "Ò³Âë²»¶Ô£¬Ç×", Toast.LENGTH_LONG).show();
+					return;
+				}
 				Intent i = new Intent();
 				i.putExtra("comment", comment);
-				i.putExtra("read_position", read_position);
+				i.putExtra("read_position", readPosition);
+				i.putExtra("page_of_comment", pageOfComment);
+				
 				EditRead.this.setResult(RESULT_OK, i);
 				EditRead.this.finish();
 			}

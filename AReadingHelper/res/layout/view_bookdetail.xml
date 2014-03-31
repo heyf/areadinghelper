@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/book_detail_image"
             android:layout_alignTop="@+id/book_detail_image"
+            android:text="@string/sample_title"
             android:textSize="30sp" 
             android:lines="1"/>
         
@@ -28,6 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/book_detail_title"
             android:layout_toRightOf="@+id/book_detail_image"
+            android:textColor="#FF888888"
+            android:text="@string/sample_author"
             android:ems="10" />
         
         <TextView

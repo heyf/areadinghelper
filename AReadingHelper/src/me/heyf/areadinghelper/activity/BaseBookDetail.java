@@ -25,14 +25,15 @@ public class BaseBookDetail extends Activity {
 	
 	DatabaseOpenHelper doh = null;
 	Dao<Book, Integer> bookDao = null;
-	
-	protected ImageLoader imageLoader = ImageLoader.getInstance();
-	
+
+	ImageLoader imageLoader;
 	DisplayImageOptions options;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		imageLoader = ImageLoader.getInstance();
 		
 		Intent i = getIntent();
 		book = i.getParcelableExtra("book");
@@ -50,7 +51,6 @@ public class BaseBookDetail extends Activity {
 		try {
 			bookDao = doh.getBookDao();
 			} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
