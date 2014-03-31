@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 public class AddBook extends BaseBookList {
 	
@@ -83,8 +84,10 @@ public class AddBook extends BaseBookList {
 		
 		public boolean search(String query){
 			AsyncHttpClient client = new AsyncHttpClient();
-			String url = "http://api.douban.com/v2/book/search?q="+ query;
-			client.get(url, new AsyncHttpResponseHandler(){
+			String url = "http://api.douban.com/v2/book/search";
+			RequestParams rp = new RequestParams();
+			rp.put("q", query);
+			client.get(url, rp, new AsyncHttpResponseHandler(){
 				@Override
 				public void onSuccess(String response) {
 					books.clear();
