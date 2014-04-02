@@ -6,6 +6,7 @@ import me.heyf.areadinghelper.R;
 import me.heyf.areadinghelper.model.Book;
 import me.heyf.areadinghelper.utils.DatabaseOpenHelper;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,14 +39,70 @@ public class BookPreview extends BaseActivity {
 	//Database
 	DatabaseOpenHelper doh = null;
 	Dao<Book, Integer> bookDao = null;
-
-	Book book;
 	
-	JSONObject bookJSON;
-	String bookJSONString;
+	DoubanDetail dd = new DoubanDetail();
 	
 	ImageLoader imageLoader;
 	DisplayImageOptions options;
+	
+	private class DoubanDetail {
+		public String title;
+		public String author;
+		public String image_url;
+		public String publisher;
+		public int pages;
+		public int douban_id;
+		
+		public boolean parseJSON(String jsonString){
+			if(jsonString==null){
+				return false;
+			}
+			try {
+				JSONObject json = new JSONObject(jsonString);
+				title = json.getString("title");
+				image_url = json.getString("image");
+				JSONArray authorArray = json.getJSONArray("author");
+				int count = authorArray.length();
+				author = "";
+				for(int i = 0; i < count; i++){
+					author += authorArray.getString(i);
+				}
+				publisher = json.getString("publisher");
+				pages = json.getInt("pages");
+				douban_id = json.getInt("id");				
+			} catch (JSONException e) {
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}
+		
+		public Spanned getMoreDetail() {
+			String html = "";
+			html += addPair("出版社",publisher)+"<br/>";
+			html += addPair("页数",pages)+"<br/>";
+			html += addPair("豆瓣ID",douban_id);
+			return Html.fromHtml(html);
+		}
+		
+		private String addPair(String name,String value){
+			return "<font color=\"grey\">"+name+":</font>"+value;
+		}
+		
+		private String addPair(String name,int value){
+			return "<font color=\"grey\">"+name+":</font>"+value;
+		}
+		
+		public Book toBook(){
+			Book b = new Book();
+			b.name = title;
+			b.image_url = image_url;
+			b.setDoubanId(douban_id);
+			b.publisher = publisher;
+			b.pages = pages;
+			return b;
+		}
+	} 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,24 +127,17 @@ public class BookPreview extends BaseActivity {
 		.build();
 		
 		Intent i = getIntent();
-		bookJSONString = i.getStringExtra("bookJSON");
+		String bookJSONString = i.getStringExtra("bookJSON");
 		
-		if(bookJSONString==null){
+		if(!dd.parseJSON(bookJSONString)){
 			BookPreview.this.setResult(INVALID_REQUEST);
 			BookPreview.this.finish();
 		}
-		try {
-			bookJSON = new JSONObject(bookJSONString);
-		} catch (JSONException e1) {
-			e1.printStackTrace();
-		}
-		
-		book = new Book(bookJSON);
 		
 		doh = OpenHelperManager.getHelper(this, DatabaseOpenHelper.class);
 		try {
 			bookDao = doh.getBookDao();
-			} catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 						
@@ -96,7 +146,7 @@ public class BookPreview extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				try {
-					bookDao.create(book);
+					bookDao.create(dd.toBook());
 				} catch (SQLException e) {
 					e.printStackTrace();
 				} finally {
@@ -112,27 +162,10 @@ public class BookPreview extends BaseActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		imageLoader.displayImage(book.image_url, image, options);
-		title.setText(book.name);
-		viewAuthor.setText(book.author);
-		moreDetail.setText(getMoreDetail());
-		
-	}
-
-	private Spanned getMoreDetail() {
-		String html = "";
-		html += addPair("出版社",book.publisher)+"<br/>";
-		html += addPair("页数",book.pages)+"<br/>";
-		html += addPair("豆瓣ID",book.getDoubanId());
-		return Html.fromHtml(html);
-	}
-	
-	private String addPair(String name,String value){
-		return "<font color=\"grey\">"+name+":</font>"+value;
-	}
-	
-	private String addPair(String name,int value){
-		return "<font color=\"grey\">"+name+":</font>"+value;
+		imageLoader.displayImage(dd.image_url, image, options);
+		title.setText(dd.title);
+		viewAuthor.setText(dd.author);
+		moreDetail.setText(dd.getMoreDetail());
 	}
 	
 }
