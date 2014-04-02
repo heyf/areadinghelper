@@ -1,7 +1,6 @@
 package me.heyf.areadinghelper.activity;
 
 import me.heyf.areadinghelper.R;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class EditRead extends Activity {
+public class EditRead extends BaseActivity {
 	
 	EditText editPage;
 	EditText editComment;
@@ -27,7 +26,6 @@ public class EditRead extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ac_edit_comment);
 		
@@ -72,8 +70,6 @@ public class EditRead extends Activity {
 			}
 			
 		});
-		
-		
 		
 	}
 

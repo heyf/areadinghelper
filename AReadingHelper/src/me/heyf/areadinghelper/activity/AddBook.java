@@ -22,8 +22,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class AddBook extends BaseBookList {
 	
-	public static final int INVALID_REQUEST = 90001;
-	
 		TextView query_result;
 		String query_string;
 		Toast toast;

@@ -23,10 +23,6 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class Main extends BaseBookList {
 	
-	public static final int DELETE_BOOK = 90016;
-	public static final int BOOK_DETAIL = 10000;
-	public static final int ADD_BOOK = 10001;
-
 	private DatabaseOpenHelper doh = null;
 	private Dao<Book, Integer> bookDao = null;
 	
@@ -45,7 +41,6 @@ public class Main extends BaseBookList {
 		try {
 			bookDao = doh.getBookDao();
 			} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -98,7 +93,6 @@ public class Main extends BaseBookList {
 				try {
 					bookDao.delete(parcelableExtra);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} finally {
 					ia.notifyDataSetChanged();

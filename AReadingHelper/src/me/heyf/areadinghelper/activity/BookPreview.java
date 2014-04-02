@@ -9,7 +9,6 @@ import me.heyf.areadinghelper.utils.DatabaseOpenHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -27,7 +26,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
-public class BookPreview extends Activity {
+public class BookPreview extends BaseActivity {
 	
 	//Views
 	Button buttonSubmit;
@@ -74,7 +73,7 @@ public class BookPreview extends Activity {
 		bookJSONString = i.getStringExtra("bookJSON");
 		
 		if(bookJSONString==null){
-			BookPreview.this.setResult(AddBook.INVALID_REQUEST);
+			BookPreview.this.setResult(INVALID_REQUEST);
 			BookPreview.this.finish();
 		}
 		try {
