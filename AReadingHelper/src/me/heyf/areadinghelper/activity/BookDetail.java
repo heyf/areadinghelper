@@ -8,7 +8,6 @@ import me.heyf.areadinghelper.R;
 import me.heyf.areadinghelper.model.Book;
 import me.heyf.areadinghelper.model.Read;
 import me.heyf.areadinghelper.utils.DatabaseOpenHelper;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,17 +30,14 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 
-public class BookDetail extends Activity {
+public class BookDetail extends BaseActivity {
 	
 	//Constrains
-	static final int CUSTOM_RED = 0xffff4444;
-	static final int CUSTOM_GREEN = 0xff99CC00;
-	
 	static final int STANDING_BY = 1;
 	static final int READING = 2;
 	
 	//VAR
-	int flag = 1;
+	int flag = STANDING_BY;
 	int chosenId = -1;
 	
 	//Views
@@ -123,7 +119,6 @@ public class BookDetail extends Activity {
 				try {
 					readDao.create(read);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} finally {
 					onButtonInit();
@@ -303,7 +298,6 @@ public class BookDetail extends Activity {
 		@Override
 		protected Void doInBackground(Void... arg0) {
 			try {
-				//reads = readDao.queryForEq("book_id", book);
 				QueryBuilder<Read,Integer> qb = readDao.queryBuilder();
 				qb.orderBy("read_id", false);
 				qb.where().eq("book_id",book);

@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -46,7 +45,6 @@ public class Book implements Parcelable {
 			image_url = bookJSON.getString("image");
 			author = bookJSON.getJSONArray("author").getString(0);
 			douban_id = bookJSON.getInt("id");
-			Log.d("parse_douban id", Integer.toString(douban_id));
 			publisher = bookJSON.getString("publisher");
 			pages = bookJSON.getInt("pages");
 			page_read = 0;
@@ -106,5 +104,10 @@ public class Book implements Parcelable {
 	
 	public int getDoubanId(){
 		return douban_id;
+	}
+	
+	public void setDoubanId(int doubanId){
+		douban_id = doubanId;
+		return;
 	}
 }

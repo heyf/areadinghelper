@@ -10,7 +10,6 @@ import me.heyf.areadinghelper.model.Book;
 
 import org.json.JSONArray;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -26,7 +25,7 @@ import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
-public class BaseBookList extends Activity {
+public class BaseBookList extends BaseActivity {
 		
 	ImageLoader imageLoader;
 	

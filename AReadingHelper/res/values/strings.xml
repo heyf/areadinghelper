@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_gotolist">前往图书列表</string>
     <string name="hello_world">Query</string>
     <string name="button">查找</string>
 	<string name="descr_image">Image</string>
