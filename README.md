@@ -16,6 +16,8 @@ an android app designed for a better reading experience
 
 ## Status
 
+刚刚重装系统…测测git好不好使…顺便预告一下，大概一个月内都不会更新（喂，到底是写给谁看的！）
+
 ### Doing
 
 * 阅读计划
